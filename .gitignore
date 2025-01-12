@@ -1,0 +1,40 @@
+#Custom
+
+
+# Common ignored files and directories
+*~
+*.patch
+*.swp
+*.tmp
+*.la
+.libs/
+.lo
+.loT
+.o
+.dep
+autom4te.cache/
+config.cache
+config.log
+config.nice
+config.status
+# PHP-specific ignored files and directories
+vendor/
+node_modules/
+public/storage/
+public/hot/
+.env
+.env.backup
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+yarn-error.log
+
+# Laravel-specific ignored files and directories
+composer.lock
+composer.vendor.json
+
+# Additional ignored files and directories (optional)
+*.sublime-project
+*.sublime-workspace
+.idea/
+*.phpc
