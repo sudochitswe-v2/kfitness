@@ -1,0 +1,13 @@
+{
+    "name": "k/kfitness",
+    "description": "nothing special",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "K\\Kfitness\\": "src/"
+        }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
