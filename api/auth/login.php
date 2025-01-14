@@ -33,10 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo json_encode($data);
         } else {
             http_response_code(401);
-            echo 'Invalid password';
+            echo json_encode(['error' => 'Invalid password']);
         }
     } else {
         http_response_code(404);
-        echo 'User not found';
+        echo json_encode(['error' => 'User not found']);
     }
 }

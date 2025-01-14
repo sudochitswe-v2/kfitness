@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         http_response_code(200);
     } catch (\Throwable $th) {
         http_response_code(500);
-        echo $th->getMessage();
+        echo json_encode(['error' => $th->getMessage()]);
         //throw $th;
     }
 }
