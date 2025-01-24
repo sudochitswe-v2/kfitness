@@ -2,12 +2,11 @@
 
 namespace K\Kfitness\Libs\Database;
 
-
+use PDO;
 
 class UsersRepository
 {
-    private $db = null;
-
+    private ?PDO $db = null;
     public function __construct(MySQL $db)
     {
         $this->db = $db->connect();
@@ -17,12 +16,13 @@ class UsersRepository
     {
 
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        $data['registration_date'] = date('Y-m-d H:i:s');
 
         // create query statement with sql paramters
         $query = " INSERT INTO  users 
-            (name, email, password,date_of_birth, height, weight) 
+            (name, email, password, registration_date) 
             VALUES 
-            (:name, :email, :password,:date_of_birth, :height, :weight )";
+            (:name, :email, :password, :registration_date )";
 
         // bind sql parameters
         $statement = $this->db->prepare($query);

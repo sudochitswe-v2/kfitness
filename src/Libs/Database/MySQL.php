@@ -21,7 +21,7 @@ class MySQL
         $this->dbpass = $_ENV['DB_PASSWORD'];
         $this→db = null;
     }
-    public function connect()
+    public function connect(): PDO
     {
         try {
             $this->db = new PDO(
