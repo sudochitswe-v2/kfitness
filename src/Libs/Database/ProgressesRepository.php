@@ -52,6 +52,6 @@ class ProgressesRepository
         $sql = "SELECT * FROM progresses WHERE goal_id = :goal_id";
         $stmt = $this->db->prepare($sql);
         $stmt->execute(['goal_id' => $goalId]);
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

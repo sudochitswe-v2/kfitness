@@ -13,6 +13,7 @@ try {
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'POST':
             $input = json_decode(file_get_contents('php://input'), true);
+            unset($input['id']);
             $repo->create($input);
             ResponseHandler::handleResponse(200);
             break;
@@ -24,7 +25,9 @@ try {
             break;
 
         case 'DELETE':
-            ResponseHandler::handleResponse(405, ['error' => 'Method not allowed']);
+            $id = $_GET['id'];
+            $repo->delete($id);
+            ResponseHandler::handleResponse(200);
             break;
 
         default:

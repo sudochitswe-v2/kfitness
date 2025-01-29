@@ -13,6 +13,7 @@ try {
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'POST':
             $input = json_decode(file_get_contents('php://input'), true);
+            unset($input['id']);
             $repo->create($input);
             ResponseHandler::handleResponse(200);
             break;
@@ -24,13 +25,19 @@ try {
             break;
 
         case 'DELETE':
-            ResponseHandler::handleResponse(405, ['error' => 'Method not allowed']);
+            $repo->delete($_GET['id']);
+            ResponseHandler::handleResponse(200);
             break;
 
         default:
+        if (isset($_GET['goal_id'])) {
+            $id = $_GET['goal_id'];
+            $data = $repo->progresses($id);
+            ResponseHandler::handleResponse(200, $data);
+         }else {
             $data = $repo->getAll();
             ResponseHandler::handleResponse(200, $data);
-            break;
+        }
     }
 } catch (\Throwable $th) {
     ResponseHandler::handleException($th);

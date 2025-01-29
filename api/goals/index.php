@@ -13,6 +13,7 @@ try {
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'POST':
             $input = json_decode(file_get_contents('php://input'), true);
+            unset($input['id']);
             $repo->create($input);
             ResponseHandler::handleResponse(200);
             break;
@@ -24,7 +25,8 @@ try {
             break;
 
         case 'DELETE':
-            ResponseHandler::handleResponse(405, ['error' => 'Method not allowed']);
+            $repo->delete($_GET['id']);
+            ResponseHandler::handleResponse(200);
             break;
 
         default:
@@ -36,6 +38,9 @@ try {
                 } else {
                     ResponseHandler::handleResponse(404, ['error' => 'Not found']);
                 }
+            } elseif (isset($_GET['user_id'])) {
+                $data =  $repo->userGoals($_GET['user_id']);
+                echo json_encode($data);
             } else {
                 $data = $repo->getAll();
                 ResponseHandler::handleResponse(200, $data);

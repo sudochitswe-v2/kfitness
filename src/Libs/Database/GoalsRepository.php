@@ -35,6 +35,7 @@ class GoalsRepository
         target_value = :target_value,
         start_date = :start_date,
         end_date = :end_date,
+        user_id = :user_id,
         status = :status
         WHERE id = :id";
         $stmt = $this->db->prepare($sql);
@@ -53,7 +54,16 @@ class GoalsRepository
         $sql = "SELECT * FROM goals WHERE id = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->execute(['id' => $id]);
-        $detail = $stmt->fetch();
-        $detail['progresses'] = (new ProgressesRepository(new MySQL()))->progresses($id);
+        $detail = $stmt->fetch(PDO::FETCH_ASSOC);
+        $progessesTable = new ProgressesRepository(new MySQL());
+        $detail['progresses'] = $progessesTable->progresses($id);
+        return $detail;
+    }
+    public function userGoals($user_id)
+    {
+        $sql = "SELECT * FROM goals WHERE user_id = :user_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['user_id' => $user_id]);
+        return $stmt->fetchAll();
     }
 }
