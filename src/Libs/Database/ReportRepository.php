@@ -28,7 +28,7 @@ class ReportRepository
         $sql2 = "SELECT *
             FROM goals g 
             WHERE :date BETWEEN start_date AND end_date
-            AND :user_id ";
+            AND :user_id = user_id ";
 
         $sql3 = "SELECT SUM(w.duration * a.calories_per_minute) AS total_calories_burned
             FROM workouts w
